@@ -78,3 +78,25 @@ exports.get_cars = async (req, res) => {
     return error;
   }
 };
+
+exports.get_one_car = async (req, res) => {
+  try {
+    let { id } = req.body;
+    let getAllcars = await schema.find({ _id: id });
+
+    if (getAllcars.length > 0) {
+      return res.status(200).json({
+        message: "Cars Fetched successfully",
+        data: getAllcars,
+      });
+    } else {
+      return res.status(404).json({
+        message: "No cars found",
+        data: [],
+      });
+    }
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
